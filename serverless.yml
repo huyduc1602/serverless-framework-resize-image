@@ -1,0 +1,27 @@
+org: duchh
+app: duchh-pj-internal-serverless
+service: duchh-pj-internal-serverless
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: ap-northeast-1
+  layers:
+    - arn:aws:lambda:ap-northeast-1:618450001354:layer:duchh-pj-internal-serverless-resize-image:2
+
+functions:
+  resize_image:
+    handler: handler.resize_image
+    events:
+      - http:
+          path: resize-image
+          method: post
+          cors: true  # Cho phép CORS để có thể gọi từ các trang web khác origin
+
+    ResizeImageApiDeployment:
+      Type: "AWS::ApiGateway::Deployment"
+      DependsOn:
+        - ResizeImageApiMethod
+      Properties:
+        RestApiId:
+          Ref: ResizeImageApi
