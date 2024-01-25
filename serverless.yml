@@ -4,10 +4,10 @@ service: duchh-pj-internal-serverless
 
 provider:
   name: aws
-  runtime: python3.9
+  runtime: python3.8
   region: ap-northeast-1
   layers:
-    - arn:aws:lambda:ap-northeast-1:618450001354:layer:duchh-pj-internal-serverless-resize-image:2
+    - arn:aws:lambda:ap-northeast-1:618450001354:layer:duchh-pj-internal-serverless-resize-image:6
 
 functions:
   resize_image:

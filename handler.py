@@ -1,4 +1,4 @@
-from PIL import Image
+import PIL
 import io
 import json
 import boto3
@@ -12,7 +12,7 @@ def resize_image(event, context):
         image_data = body['image_data']
 
         # Xử lý hình ảnh
-        image = Image.open(io.BytesIO(image_data))
+        image = PIL.Image.open(io.BytesIO(image_data))
         new_width = 100
         new_height = int((float(image.size[1]) * float(new_width / float(image.size[0]))))
         resized_image = image.resize((new_width, new_height))
