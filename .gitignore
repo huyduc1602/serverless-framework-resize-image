@@ -17,6 +17,7 @@ var/
 *.egg
 pillow_layer.zip
 serverless_sdk/
+__pycache__/
 
 # Serverless directories
 .serverless
