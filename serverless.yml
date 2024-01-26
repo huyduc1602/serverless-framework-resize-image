@@ -44,10 +44,6 @@ functions:
           path: resize-image
           method: post
           cors: true  # Cho phép CORS để có thể gọi từ các trang web khác origin
-    ResizeImageApiDeployment:
-      Type: "AWS::ApiGateway::Deployment"
-      DependsOn:
-        - ResizeImageApiMethod
-      Properties:
-        RestApiId:
-          Ref: ResizeImageApi  # Sử dụng tham chiếu đến tài nguyên RestApi có tên ResizeImageApi
+          request:
+            schemas:
+              application/json: ${file(./schemas/resize_image_request.json)} # Đường dẫn tới file schema JSON
