@@ -13,8 +13,25 @@ provider:
           Action:
             - s3:PutObject
           Resource: "arn:aws:s3:::duchh-pj-internal-resize-image/*"
+  # layers:
+  #   - arn:aws:lambda:ap-northeast-1:618450001354:layer:duchh-pj-internal-serverless-resize-image:7
   layers:
-    - arn:aws:lambda:ap-northeast-1:618450001354:layer:duchh-pj-internal-serverless-resize-image:7
+    - !Ref PillowLambdaLayer
+	
+layers:
+  pillow:
+    # path: ${file(./python)} # Đường dẫn tới nội dung của folder layer trên đĩa
+    package:
+      artifact: pillow_layer.zip # Tên file zip chứa layer khi được đóng gói
+    name: ${sls:stage}-pillow # Tên của layer khi được triển khai
+    description: Pillow layer # Mô tả của layer
+    compatibleRuntimes:
+      - python3.8 # Danh sách các runtime tương thích với layer
+    compatibleArchitectures:
+      - x86_64 # Danh sách các kiến trúc tương thích với layer
+      - arm64
+    licenseInfo: HPND # Thông tin về giấy phép
+    retain: false # Tuỳ chọn, mặc định là false. Nếu true, các phiên bản của layer không bị xóa khi tạo phiên bản mới.
 
 functions:
   resize_image:
@@ -24,7 +41,6 @@ functions:
           path: resize-image
           method: post
           cors: true  # Cho phép CORS để có thể gọi từ các trang web khác origin
-
     ResizeImageApiDeployment:
       Type: "AWS::ApiGateway::Deployment"
       DependsOn:
