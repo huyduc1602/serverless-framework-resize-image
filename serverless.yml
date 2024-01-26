@@ -1,6 +1,7 @@
 org: duchh
 app: duchh-pj-internal-serverless
 service: duchh-pj-internal-serverless
+configValidationMode: error # Bắn ra lỗi và dừng deploy nếu tệp cấu hình có vấn đề
 
 provider:
   name: aws
