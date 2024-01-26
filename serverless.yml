@@ -16,7 +16,9 @@ provider:
   # layers:
   #   - arn:aws:lambda:ap-northeast-1:618450001354:layer:duchh-pj-internal-serverless-resize-image:7
   layers:
-    - !Ref PillowLambdaLayer
+    - !Ref PillowLambdaLayer  # Sử dụng layer có tên PillowLambdaLayer
+  environment:
+    BUDGET_NAME: duchh-pj-internal-resize-image  # Đặt biến môi trường BUDGET_NAME thành duchh-pj-internal-resize-image
 	
 layers:
   pillow:
@@ -47,4 +49,4 @@ functions:
         - ResizeImageApiMethod
       Properties:
         RestApiId:
-          Ref: ResizeImageApi
+          Ref: ResizeImageApi  # Sử dụng tham chiếu đến tài nguyên RestApi có tên ResizeImageApi

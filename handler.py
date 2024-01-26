@@ -4,6 +4,7 @@ from PIL import Image
 import io
 import json
 import boto3
+import os
 from datetime import datetime
 
 s3 = boto3.client('s3')
@@ -27,10 +28,11 @@ def resize_image(event, context):
         resized_image_data = resized_image_bytes.getvalue()
 
         image_name = datetime.now().strftime("%Y%m%d%H%M%S") + '.jpg'
+        budget_name = os.getenv('BUDGET_NAME')
 
         # Lưu hình ảnh đã xử lý vào S3
         s3.put_object(
-            Bucket='duchh-pj-internal-resize-image',
+            Bucket=budget_name,
             Key='resized/'+ image_name,
             Body=resized_image_data,
             ContentType='image/jpeg'
