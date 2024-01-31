@@ -18,6 +18,7 @@ var/
 pillow_layer.zip
 serverless_sdk/
 __pycache__/
+node_modules/
 
 # Serverless directories
 .serverless
