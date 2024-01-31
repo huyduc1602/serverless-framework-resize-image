@@ -28,7 +28,7 @@ def resize_image(event, context):
         resized_image_data = resized_image_bytes.getvalue()
 
         image_name = datetime.now().strftime("%Y%m%d%H%M%S") + '.jpg'
-        budget_name = os.getenv('BUDGET_NAME')
+        budget_name = os.getenv('BUCKET_NAME')
 
         # Lưu hình ảnh đã xử lý vào S3
         s3.put_object(

@@ -19,7 +19,7 @@ provider:
   layers:
     - !Ref PillowLambdaLayer  # Sử dụng layer có tên PillowLambdaLayer
   environment:
-    BUDGET_NAME: duchh-pj-internal-resize-image  # Đặt biến môi trường BUDGET_NAME thành duchh-pj-internal-resize-image
+    BUCKET_NAME: duchh-pj-internal-resize-image  # Đặt biến môi trường BUCKET_NAME thành duchh-pj-internal-resize-image
 	
 layers:
   pillow:
@@ -47,3 +47,19 @@ functions:
           request:
             schemas:
               application/json: ${file(./schemas/resize_image_request.json)} # Đường dẫn tới file schema JSON
+
+plugins:
+  - serverless-s3-deploy
+
+custom:
+  s3:
+    - duchh-pj-internal-resize-image
+
+resources:
+  Resources:
+    # Định nghĩa một tài nguyên mới có tên là "ResizeImage" kiểu AWS S3 Bucket
+    ResizeImage:
+      Type: 'AWS::S3::Bucket'
+      Properties:
+        # Đặt tên cho bucket là "duchh-pj-internal-resize-image"
+        BucketName: duchh-pj-internal-resize-image
